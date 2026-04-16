@@ -5,6 +5,10 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "./pages/Index.tsx";
 import Recommend from "./pages/Recommend.tsx";
+import Products from "./pages/Products.tsx";
+import ProductDetail from "./pages/ProductDetail.tsx";
+import Checklist from "./pages/Checklist.tsx";
+import Cart from "./pages/Cart.tsx";
 import Guide from "./pages/Guide.tsx";
 import MyPage from "./pages/MyPage.tsx";
 import NotFound from "./pages/NotFound.tsx";
@@ -20,6 +24,10 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/recommend" element={<Recommend />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/product/:id" element={<ProductDetail />} />
+          <Route path="/checklist" element={<Checklist />} />
+          <Route path="/cart" element={<Cart />} />
           <Route path="/guide" element={<Guide />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="*" element={<NotFound />} />
