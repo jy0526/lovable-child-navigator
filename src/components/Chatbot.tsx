@@ -24,7 +24,7 @@ function buildSystemPrompt(months: number | null) {
   const relevantProducts = getRelevantProducts(months);
   const productList = relevantProducts.map(p => {
     const maxStr = p.maxMonths === null ? "상한없음" : `${p.maxMonths}개월 미만`;
-    return `- [${p.id}] ${p.title} | ${p.price} | ${p.categorySub}(${p.categoryMain}) | 추천월령:${p.minMonths}~${maxStr} | 근거:${p.reason}`;
+    return `- [${p.id}] ${p.title} | ${p.priceLabel} | ${p.subCategory}(${p.category}) | 추천월령:${p.minMonths}~${maxStr} | 근거:${p.reason}`;
   }).join("\n");
 
   const childContext = months !== null
