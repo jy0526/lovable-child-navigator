@@ -9,6 +9,7 @@ import Footer from "@/components/Footer";
 import Chatbot from "@/components/Chatbot";
 import { getChildMonths } from "@/lib/childStore";
 import { getRelevantProducts, formatPrice, getStageLabel, PRODUCT_DB } from "@/lib/products";
+import { getProductImage } from "@/lib/productImages";
 
 const popularProducts = [...PRODUCT_DB].sort((a, b) => b.reviewCount - a.reviewCount).slice(0, 8);
 
