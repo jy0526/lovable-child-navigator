@@ -9,6 +9,7 @@ import Footer from "@/components/Footer";
 import Chatbot from "@/components/Chatbot";
 import { getChildMonths } from "@/lib/childStore";
 import { getRelevantProducts, formatPrice, getStageLabel, PRODUCT_DB } from "@/lib/products";
+import { getProductImage } from "@/lib/productImages";
 
 const popularProducts = [...PRODUCT_DB].sort((a, b) => b.reviewCount - a.reviewCount).slice(0, 8);
 
@@ -68,23 +69,41 @@ const Index = () => {
               <p className="text-muted-foreground">가장 많은 부모님이 찾는 육아용품이에요</p>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
-              {popularProducts.map((p, i) => (
-                <motion.div key={p.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }}>
-                  <Link to={`/product/${p.id}`} className="block bg-card border-2 border-border rounded-2xl p-4 hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300 group">
-                    <div className="text-3xl mb-2">{p.icon}</div>
-                    <h3 className="font-semibold text-foreground text-sm mb-1 group-hover:text-primary transition-colors line-clamp-1">{p.title}</h3>
-                    <p className="text-xs text-muted-foreground mb-1">{p.brand}</p>
-                    <div className="flex items-baseline gap-1.5 mb-2">
-                      <span className="font-bold text-foreground text-sm">{formatPrice(p.price)}</span>
-                    </div>
-                    <div className="flex flex-wrap gap-1">
-                      {p.ddok.map(tag => (
-                        <span key={tag} className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${ddokTagStyles[tag]}`}>{tag}</span>
-                      ))}
-                    </div>
-                  </Link>
-                </motion.div>
-              ))}
+              {popularProducts.map((p, i) => {
+                const img = getProductImage(p.id);
+                return (
+                  <motion.div key={p.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }}>
+                    <Link to={`/product/${p.id}`} className="block bg-card border border-border rounded-2xl overflow-hidden hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300 group">
+                      <div className="aspect-square bg-muted/40 overflow-hidden flex items-center justify-center">
+                        {img ? (
+                          <img
+                            src={img}
+                            alt={p.title}
+                            loading="lazy"
+                            width={512}
+                            height={512}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                        ) : (
+                          <div className="text-5xl">{p.icon}</div>
+                        )}
+                      </div>
+                      <div className="p-4">
+                        <h3 className="font-semibold text-foreground text-sm mb-1 group-hover:text-primary transition-colors line-clamp-1">{p.title}</h3>
+                        <p className="text-xs text-muted-foreground mb-1">{p.brand}</p>
+                        <div className="flex items-baseline gap-1.5 mb-2">
+                          <span className="font-bold text-foreground text-sm">{formatPrice(p.price)}</span>
+                        </div>
+                        <div className="flex flex-wrap gap-1">
+                          {p.ddok.map(tag => (
+                            <span key={tag} className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${ddokTagStyles[tag]}`}>{tag}</span>
+                          ))}
+                        </div>
+                      </div>
+                    </Link>
+                  </motion.div>
+                );
+              })}
             </div>
             <div className="text-center mt-8">
               <Link to="/products" className="text-primary text-sm font-medium hover:underline">전체 상품 보기 →</Link>
