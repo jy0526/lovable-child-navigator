@@ -56,12 +56,6 @@ const Header = () => {
               </span>
             )}
           </Link>
-          <Link
-            to="/recommend"
-            className="gradient-primary text-primary-foreground px-5 py-2 rounded-full text-sm font-semibold shadow-elegant hover:shadow-lg transition-all hover:scale-105"
-          >
-            추천 받기
-          </Link>
         </div>
 
         {/* Mobile */}
